@@ -6,7 +6,7 @@ import type { Route } from "./+types/root"
 import { LanguageSwitcher } from "./library/language-switcher"
 import { globalAppContext } from "./server/context"
 import { ClientHintCheck, getHints } from "./services/client-hints"
-import tailwindcss from "./tailwind.css?url"
+import tailwindcss from "./index.css?url"
 
 export async function loader({ context, request }: Route.LoaderArgs) {
 	const { lang, clientEnv } = context.get(globalAppContext)
