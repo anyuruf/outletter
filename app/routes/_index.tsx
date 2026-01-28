@@ -1,5 +1,4 @@
 import type { MetaFunction } from "react-router";
-import { useTranslation } from "react-i18next";
 
 export const meta: MetaFunction = () => {
   return [
@@ -9,10 +8,9 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
-  const { t } = useTranslation();
   return (
     <div>
-      <h1>{t("hi")}</h1>
+      <h1>Hello from Index</h1>
     </div>
   );
 }

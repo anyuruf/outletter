@@ -1,7 +1,7 @@
 import * as React from "react"
 import * as ToggleGroupPrimitive from "@radix-ui/react-toggle-group"
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/utils/css"
 import { toggleVariants } from "@/components/ui/toggle"
 import { CSSProperties } from "react";
 

@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { Slot } from "@radix-ui/react-slot";
@@ -21,39 +19,21 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { useIsMobile } from "@/utils/use-mobile"
 import { PanelLeftIcon } from "lucide-react"
 
-const SIDEBAR_COOKIE_NAME = "sidebar_state"
-const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
+
 const SIDEBAR_WIDTH = "16rem"
 const SIDEBAR_WIDTH_MOBILE = "18rem"
 const SIDEBAR_WIDTH_ICON = "3rem"
-const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 
-type SidebarContextProps = {
-    state: "expanded" | "collapsed"
-    open: boolean
-    setOpen: (open: boolean) => void
-    openMobile: boolean
-    setOpenMobile: (open: boolean) => void
-    isMobile: boolean
-    toggleSidebar: () => void
-}
 
 
 function SidebarProvider({
-                             open: openProp,
-                             onOpenChange: setOpenProp,
                              className,
                              style,
                              children,
                              ...props
-                         }: React.ComponentProps<"div"> & {
-    defaultOpen?: boolean
-    open?: boolean
-    onOpenChange?: (open: boolean) => void
-}) {
+                         }: React.ComponentProps<"div">) {
 
     return (
             <div
@@ -187,35 +167,32 @@ function Sidebar({
     )
 }
 
-function SidebarTrigger({
-                            className,
-                            onClick,
-                            ...props
-                        }: React.ComponentProps<typeof Button>) {
-    const { toggleSidebar }
+function SidebarTrigger({ className, onClick, toggleSidebar, ...props }) {
+    // togglesidebar from sidebarContext
 
     return (
         <Button
             data-sidebar="trigger"
             data-slot="sidebar-trigger"
             variant="ghost"
-            size="icon-sm"
-            className={cn(className)}
+            size="icon"
+            className={cn("size-7", className)}
             onClick={(event) => {
-                onClick?.(event)
-                toggleSidebar()
+                onClick?.(event);
+                toggleSidebar();
             }}
             {...props}
         >
-            <PanelLeftIcon
-            />
+            <PanelLeftIcon />
             <span className="sr-only">Toggle Sidebar</span>
         </Button>
-    )
+    );
 }
 
-function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
-    const { toggleSidebar } = useSidebar()
+function SidebarRail({ className, toggleSidebar, ...props }: React.ComponentProps<"button">& {
+    toggleSidebar: () => void
+}) {
+    // togglesidebar from sidebarContext
 
     return (
         <button
@@ -434,14 +411,19 @@ function SidebarMenuButton({
                                size = "default",
                                tooltip,
                                className,
+                               children,
+                               isMobile,
+                               state,
                                ...props
                            }: React.ComponentProps<"button"> & {
     asChild?: boolean
     isActive?: boolean
+    isMobile: boolean
+    state: "expanded" | "collapsed"
     tooltip?: string | React.ComponentProps<typeof TooltipContent>
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
+    // isMobile, state from sidebarContext object
     const Comp = asChild ? Slot.Root : "button"
-    const { isMobile, state } = useSidebar()
 
     const button = (
         <Comp
@@ -635,5 +617,4 @@ export {
     SidebarRail,
     SidebarSeparator,
     SidebarTrigger,
-    useSidebar,
 }

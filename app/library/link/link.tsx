@@ -1,5 +1,5 @@
 import { Link as ReactRouterLink, type LinkProps as ReactRouterLinkProps } from "react-router"
-import type { Language } from "~/localization/resource"
+import type { Language } from "@/localization/resource"
 import { useEnhancedTo } from "./useEnhancedTo"
 
 export interface LinkProps extends ReactRouterLinkProps {

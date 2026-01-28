@@ -1,11 +1,11 @@
-import "~/index.css"
+import "@/index.css"
 import { renderHook as renderReactHook } from "@testing-library/react"
 import { createInstance } from "i18next"
 import { I18nextProvider, initReactI18next } from "react-i18next"
 import { createRoutesStub, Outlet, type RoutesTestStubProps } from "react-router"
 import { render } from "vitest-browser-react"
-import i18n from "~/localization/i18n"
-import { type Language, type Namespace, resources } from "~/localization/resource"
+import i18n from "@/localization/i18n"
+import { type Language, type Namespace, resources } from "@/localization/resource"
 export type StubRouteEntry = Parameters<typeof createRoutesStub>[0][0]
 
 const renderStub = async (args?: {

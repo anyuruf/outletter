@@ -1,18 +1,21 @@
 import { useTranslation } from "react-i18next"
 import type { LinksFunction } from "react-router"
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "react-router"
-import { useChangeLanguage } from "remix-i18next/react"
 import type { Route } from "./+types/root"
 import { LanguageSwitcher } from "./library/language-switcher"
 import { globalAppContext } from "./server/context"
 import { ClientHintCheck, getHints } from "./services/client-hints"
 import tailwindcss from "./index.css?url"
+import {changeLanguage} from "i18next";
+import { AppSidebar } from "./components/app.sidebar"
+import React from "react";
 
-export async function loader({ context, request }: Route.LoaderArgs) {
-	const { lang, clientEnv } = context.get(globalAppContext)
+export async function clientLoader({ context, request }: Route.LoaderArgs) {
+	const { lang, clientEnv, sidebarContext } = context.get(globalAppContext)
 	const hints = getHints(request)
-	return { lang, clientEnv, hints }
+	return { lang, clientEnv, hints, sidebarContext }
 }
+
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: tailwindcss }]
 
@@ -20,20 +23,22 @@ export const handle = {
 	i18n: "common",
 }
 
-export default function App({ loaderData }: Route.ComponentProps) {
-	const { lang, clientEnv } = loaderData
-	useChangeLanguage(lang)
+export default async function App({ loaderData }: Route.ComponentProps) {
+	const { lang, clientEnv, sidebarContext } = loaderData
+	const { isMobile, state, openMobile, setOpenMobile } = sidebarContext
+	await changeLanguage(lang)
 	return (
-		<>
+		<AppSidebar isMobile={isMobile} state={state} openMobile={openMobile} setOpenMobile={setOpenMobile} >
 			<Outlet />
 			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: We set the window.env variable to the client env */}
 			<script dangerouslySetInnerHTML={{ __html: `window.env = ${JSON.stringify(clientEnv)}` }} />
-		</>
+		</AppSidebar>
 	)
 }
 
-export const Layout = ({ children }: { children: React.ReactNode }) => {
+export const Layout = ({ children, loaderData }: { children: React.ReactNode; loaderData : Route.ComponentProps  }) => {
 	const { i18n } = useTranslation()
+
 	return (
 		<html className="overflow-y-auto overflow-x-hidden" lang={i18n.language} dir={i18n.dir()}>
 			<head>
