@@ -37,7 +37,7 @@ const buttonVariants = cva(
 )
 
 /********** Add forwardRef make the button clickable **********/
-const Button = React.forwardRef<HTMLButtonElement>(({
+const Button = React.forwardRef(({
   className,
   variant,
   size,

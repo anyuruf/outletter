@@ -25,14 +25,13 @@ export const handle = {
 
 export default async function App({ loaderData }: Route.ComponentProps) {
 	const { lang, clientEnv, sidebarContext } = loaderData
-	const { isMobile, state, openMobile, setOpenMobile } = sidebarContext
 	await changeLanguage(lang)
 	return (
-		<AppSidebar isMobile={isMobile} state={state} openMobile={openMobile} setOpenMobile={setOpenMobile} >
+		<>
 			<Outlet />
 			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: We set the window.env variable to the client env */}
 			<script dangerouslySetInnerHTML={{ __html: `window.env = ${JSON.stringify(clientEnv)}` }} />
-		</AppSidebar>
+		</>
 	)
 }
 
