@@ -1,6 +1,6 @@
 import { useMemo } from "react"
 import { type To, useSearchParams } from "react-router"
-import type { Language } from "~/localization/resource"
+import type { Language } from "@/localization/resource"
 
 /**
  * Enhances the default to prop by adding the language to the search params and conditionally keeping the search params

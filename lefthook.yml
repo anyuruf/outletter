@@ -2,11 +2,11 @@ pre-commit:
   parallel: true
   commands:
     check:
-      run: pnpm run check --fix --no-errors-on-unmatched
+      run: npm run check --fix --no-errors-on-unmatched
       stage_fixed: true
     typecheck:
-      run: pnpm run typecheck
+      run: npm run typecheck
     test:
-      run: pnpm run test
+      run: npm run test
     unused-code:
-      run: pnpm run check:unused
+      run: npm run check:unused
