@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/utils/css";
+import { cn } from "@/utils/misc";
 
 function SearchForm() {
   return (

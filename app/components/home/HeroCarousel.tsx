@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { slides } from "@/constants/carouselProducts"
 import { GradientText } from '@/components/shadcn-io/GradientText';
 import CarouselButtonGroup from "@/components/shadcn-io/ButtonGroup";
-import { useAutoplay } from "@/utils/css";
+import { useAutoplay } from "@/utils/misc";
 
 export default function HeroCarousel() {
   const [carouselAPI, setCarouselAPI] = useState(null);

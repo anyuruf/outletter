@@ -1,8 +1,8 @@
 import * as React from "react";
 import { CSSProperties } from "react";
-import { cn } from "@/utils/css"
+import { cn } from "@/utils/misc"
 
-const OutletLogoSVG = ({ className, ...props }: React.SVGAttributes<SVGElement>) => (
+const OutletLogoSvg = ({ className, ...props }: React.SVGAttributes<SVGElement>) => (
   <svg
     className={cn('pointer-events-none', className)}
     width={78}
@@ -342,4 +342,4 @@ const OutletLogoSVG = ({ className, ...props }: React.SVGAttributes<SVGElement>)
     </g>
   </svg>
 );
-export default OutletLogoSVG;
+export default OutletLogoSvg;

@@ -1,4 +1,4 @@
-import { cn } from "@/utils/css";
+import { cn } from "@/utils/misc";
 
 function Skeleton({ className, ...props }) {
   return (

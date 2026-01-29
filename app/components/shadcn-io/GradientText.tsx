@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { motion, type Transition } from 'motion/react';
-import { cn } from '@/utils/css';
+import { cn } from '@/utils/misc';
 
 type GradientTextProps = React.ComponentProps<'span'> & {
   text: string;

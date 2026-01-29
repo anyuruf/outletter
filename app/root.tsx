@@ -10,8 +10,8 @@ import {changeLanguage} from "i18next";
 import { AppSidebar } from "./components/app.sidebar"
 import React from "react";
 
-export async function clientLoader({ context, request }: Route.LoaderArgs) {
-	const { lang, clientEnv, sidebarContext } = context.get(globalAppContext)
+export async function loader({ context, request }: Route.LoaderArgs) {
+	const { lang, clientEnv } = context.get(globalAppContext)
 	const hints = getHints(request)
 	return { lang, clientEnv, hints, sidebarContext }
 }
@@ -24,7 +24,7 @@ export const handle = {
 }
 
 export default async function App({ loaderData }: Route.ComponentProps) {
-	const { lang, clientEnv, sidebarContext } = loaderData
+	const { lang, clientEnv } = loaderData
 	await changeLanguage(lang)
 	return (
 		<>
