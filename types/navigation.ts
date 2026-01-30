@@ -19,5 +19,4 @@ export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
     onNotificationItemClick?: (item: string) => void;
     onUserItemClick?: (item: string) => void;
     request?: Request;
-    context: typeof<sidebarContext>
 }

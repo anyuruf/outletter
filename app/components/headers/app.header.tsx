@@ -1,45 +1,18 @@
 import {useEffect, useState, useRef, forwardRef, useCallback} from 'react';
-import { InfoMenu } from '@/components/RootLayout/AppHeader/InfoMenu';
-import { UserMenu } from '@/components/HomePage/Header/UserMenu';
+import { InfoMenu } from '@/components/headers/InfoMenu';
+import { UserMenu } from '@/components/headers/UserMenu';
 import { cn } from '@/lib/utils';
-import OutletLogoSVG from "@/components/HomePage/Header/OutletLogoSvg";
-import { NotificationMenu } from "@/components/RootLayout/AppHeader/NotificationMenu";
+import OutletLogoSVG from "@/components/headers/OutletLogoSvg";
+import { NotificationMenu } from "@/components/headers/NotificationMenu";
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
-import SearchForm from "@/components/HomePage/SearchForm";
-import ThemeSwitch from "@/components/Theme/switch-toggle";
-import { Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import SearchForm from "@/components/headers/search.form";
+import ThemeSwitch from "@/components/theme/switch-toggle";
 import MobilePopNav from "@/components/shadcn-studio/blocks/mobile-pop-nav";
 import DesktopNav from "@/components/shadcn-studio/blocks/desktop-nav";
-import ExpandableSearch from "@/components/HomePage/ExpandableSearch";
+import ExpandableSearch from "@/components/headers/expandable.search";
+import {type NavbarProps} from "../../../types/navigation";
+import {defaultNavigationLinks} from "@/utils/constants";
 
-
-export interface NavbarNavItem {
-  href?: string;
-  label: string;
-}
-
-export interface NavbarProps extends React.HTMLAttributes<HTMLElement> {
-  logo?: React.ReactNode;
-  logoHref?: string;
-  navigationLinks?: NavbarNavItem[];
-  userName?: string;
-  userEmail?: string;
-  userAvatar?: string;
-  notificationCount?: number;
-  onNavItemClick?: (href: string) => void;
-  onInfoItemClick?: (item: string) => void;
-  onNotificationItemClick?: (item: string) => void;
-  onUserItemClick?: (item: string) => void;
-}
-
-// Default navigation links
-const defaultNavigationLinks: NavbarNavItem[] = [
-  { href: '#', label: 'Home' },
-  { href: '#', label: 'Great Deals' },
-  { href: '#', label: 'Sell' },
-  { href: '#', label: 'My Outlet' },
-];
 
 export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
   (
