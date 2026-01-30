@@ -1,8 +1,8 @@
 import {useEffect, useState, useRef, forwardRef, useCallback} from 'react';
-import { InfoMenu } from '@/components/headers/InfoMenu';
-import { UserMenu } from '@/components/headers/UserMenu';
+import { InfoMenu } from '@/components/headers/info.menu';
+import { UserMenu } from '@/components/headers/user.menu';
 import { cn } from '@/lib/utils';
-import OutletLogoSVG from "@/components/headers/OutletLogoSvg";
+import OutletLogoSVG from "@/components/headers/outlet.logo.svg";
 import { NotificationMenu } from "@/components/headers/NotificationMenu";
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import SearchForm from "@/components/headers/search.form";
