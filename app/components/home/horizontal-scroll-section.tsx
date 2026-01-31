@@ -6,8 +6,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import SlimProductCard from "@/components/HomePage/ProductCard/SlimProductCard";
-import SectionHeading from "@/components/HomePage/ProductCard/SectionHeading";
+import SlimProductCard from "@/components/home/product-card/slim-product-card";
+import SectionHeading from "@/components/home/product-card/section-heading";
 
 export default function HorizontalScrollSection() {
 

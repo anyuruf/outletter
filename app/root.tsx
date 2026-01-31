@@ -10,6 +10,8 @@ import {ReactNode} from "react";
 import {PreventFlashOnWrongTheme, type Theme, ThemeProvider, useTheme} from "remix-themes"
 import {clsx} from "clsx";
 import {themeSessionResolver} from "@/utils/sessions.server";
+import {AppSidebar} from "@/components/app.sidebar";
+import {AppHeader} from "@/components/headers/app.header";
 
 
 export async function loader({ context, request }: Route.LoaderArgs) {
@@ -42,7 +44,10 @@ export default async function AppWithProviders() {
 async function AppLayout () {
 	return(
 		<Document>
-			<Outlet />
+			<AppSidebar>
+				<AppHeader />
+				<Outlet />
+			</AppSidebar>
 		</Document>
 	)
 }
