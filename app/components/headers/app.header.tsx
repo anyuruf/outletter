@@ -10,7 +10,7 @@ import ThemeSwitch from "@/components/theme/switch-toggle";
 import MobilePopNav from "@/components/shadcn-studio/blocks/mobile-pop-nav";
 import DesktopNav from "@/components/shadcn-studio/blocks/desktop-nav";
 import ExpandableSearch from "@/components/headers/expandable.search";
-import {type NavbarProps} from "../../../types/navigation";
+import {type NavbarProps} from "@/types.d.ts/navigation";
 import {defaultNavigationLinks} from "@/utils/constants";
 
 

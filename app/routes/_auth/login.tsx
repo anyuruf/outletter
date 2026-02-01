@@ -5,7 +5,7 @@ import {
 	ProviderConnectionForm,
 	providerNames,
 } from '@/utils/connections'
-import { type Route } from './+types/login'
+import { type Route } from './+types.d.ts/login'
 
 
 export const handle: SEOHandle = {
