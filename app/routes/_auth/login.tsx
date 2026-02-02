@@ -1,19 +1,13 @@
-import { type SEOHandle } from '@nasa-gcn/remix-seo'
 import { Spacer } from '@/components/spacer'
 
 import {
+	OUTLET_PROVIDER_NAME,
 	ProviderConnectionForm,
-	providerNames,
 } from '@/utils/connections'
 import { type Route } from './+types.d.ts/login'
 
 
-export const handle: SEOHandle = {
-	getSitemapEntries: () => null,
-}
-
-
-export default function LoginPage({ actionData }: Route.ComponentProps) {
+export default function LoginPage() {
 
 	return (
 		<div className="flex min-h-full flex-col justify-center pt-20 pb-32">
@@ -27,15 +21,10 @@ export default function LoginPage({ actionData }: Route.ComponentProps) {
 				<Spacer size="xs" />
 				<div>
 					<div className="mx-auto w-full max-w-md px-8">
-						<ul className="flex flex-col gap-5">
-								<li key={providerName}>
-									<ProviderConnectionForm
-										type="Login"
-										providerName={providerName}
-										redirectTo={redirectTo}
-									/>
-								</li>
-						</ul>
+						<ProviderConnectionForm
+							type="Login"
+							providerName={OUTLET_PROVIDER_NAME}
+						/>
 					</div>
 				</div>
 			</div>
@@ -45,5 +34,5 @@ export default function LoginPage({ actionData }: Route.ComponentProps) {
 
 
 export const meta: Route.MetaFunction = () => {
-	return [{ title: 'Login to Epic Notes' }]
+	return [{ title: 'Login to Outlet iCommerce resource' }]
 }

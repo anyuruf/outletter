@@ -2,7 +2,7 @@ import { AsyncLocalStorage } from "node:async_hooks"
 import type { Session, MiddlewareFunction } from "react-router"
 import {UserAccount} from "@/types.d.ts/user.account";
 import {getAuthSessionFromContext} from "@/utils/sessions.server";
-import {getAccount} from "@/utils/http";
+import {getUserAccountFromApi} from "@/utils/http";
 
 type GlobalStorage = {
     authSession: Session
@@ -26,13 +26,13 @@ export const getAuthSession = () => {
     return storage.authSession
 }
 
-export const getOptionalUser = () => {
+export const getOptionalUserAccount = () => {
     const storage = getGlobalStorage()
     return storage.userAccount
 }
 
 export const getUserAccount = () => {
-    const userAccount = getOptionalUser()
+    const userAccount = getOptionalUserAccount()
     if (!userAccount) {
         throw new Error("User should be available here")
     }
@@ -41,8 +41,8 @@ export const getUserAccount = () => {
 
 export const globalStorageMiddleware: MiddlewareFunction<Response> = async ({ context }, next) => {
     const authSession = getAuthSessionFromContext(context)
-    const userData = authSession.get("userAccount")
-    const userAccount = getAccount();
+    const accessToken = authSession.get("access-token");
+    const userAccount = accessToken ? (await getUserAccountFromApi() ?? null) : null ;
     return new Promise((resolve) => {
         globalStorage.run(
             {

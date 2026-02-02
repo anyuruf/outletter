@@ -1,31 +1,30 @@
 import { useTranslation } from "react-i18next"
-import {LinksFunction, useLoaderData} from "react-router"
+import {LinksFunction, MiddlewareFunction, useLoaderData} from "react-router"
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "react-router"
 import type { Route } from "./+types/root"
 import { LanguageSwitcher } from "./library/language-switcher"
 import { globalAppContext } from "./server/context"
 import { ClientHintCheck, getHints } from "./services/client-hints"
-import globalCss from "./globals.css?url"
+import  "./globals.css"
 import {ReactNode} from "react";
 import {PreventFlashOnWrongTheme, type Theme, ThemeProvider, useTheme} from "remix-themes"
 import {clsx} from "clsx";
-import {themeSessionResolver} from "@/utils/sessions.server";
+import {authSessionMiddleware, themeSessionResolver} from "@/utils/sessions.server";
 import {AppSidebar} from "@/components/app.sidebar";
 import {AppHeader} from "@/components/headers/app.header";
+import {getOptionalUserAccount, globalStorageMiddleware} from "@/middleware/context-storage";
 
 
 export async function loader({ context, request }: Route.LoaderArgs) {
 
 	// Return the theme from the session storage using the loader
 	const { getTheme } = await themeSessionResolver(request)
-
+	const userAccount = getOptionalUserAccount()
 	const { lang } = context.get(globalAppContext)
 	const hints = getHints(request)
-	return { lang,  hints, theme: getTheme() }
+	return { lang,  hints, theme: getTheme(), userAccount }
 }
 
-
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: globalCss }]
 
 export const handle = {
 	i18n: "common",
@@ -111,3 +110,8 @@ export const ErrorBoundary = () => {
 		</div>
 	)
 }
+
+export const middleware: MiddlewareFunction<Response>[] = [
+	authSessionMiddleware,
+	globalStorageMiddleware,
+]
