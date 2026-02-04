@@ -1,4 +1,4 @@
-import type {NavbarNavItem} from "../../types/navigation.ts";
+import type {NavbarNavItem} from "@/types.d.ts/navigation.ts";
 
 
 export const SERVER_BACKEND_BASE_URL = "http://localhost:8080";

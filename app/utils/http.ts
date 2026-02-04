@@ -1,4 +1,11 @@
 /**
+ * Fetcher API function abstractions
+ */
+import { SERVER_BACKEND_BASE_URL } from "./constants";
+import type {UserAccount} from "@/types.d.ts/user.account.ts";
+
+
+/**
  * Helper utility used to extract the domain from the request even if it's
  * behind a proxy. This is useful for sitemaps and other things.
  * @param request Request object
@@ -21,9 +28,6 @@ export const createDomain = (request: Request) => {
 	// If we are in production, return the production domain
 	return `https://${url.host}`
 }
-
-import { SERVER_BACKEND_BASE_URL } from "./constants";
-import type {UserAccount} from "../../types/user.account.ts";
 
 export class HttpError extends Error {
 	constructor(
@@ -55,7 +59,7 @@ export async function apiFetch<T>(
 	return await response.json() as Promise<T>;
 }
 
-export function getAccount(): Promise<UserAccount> {
-	return apiFetch<UserAccount>("/api/account");
+export function getUserAccountFromApi(options?: RequestInit): Promise<UserAccount> {
+	return apiFetch<UserAccount>("/api/account", options);
 }
 

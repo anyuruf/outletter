@@ -1,4 +1,4 @@
-import "@/index.css"
+import "@/globals.css"
 import { renderHook as renderReactHook } from "@testing-library/react"
 import { createInstance } from "i18next"
 import { I18nextProvider, initReactI18next } from "react-i18next"

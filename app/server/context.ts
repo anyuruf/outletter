@@ -2,26 +2,20 @@ import type { Context } from "hono"
 import { createContext, RouterContextProvider } from "react-router"
 import { i18next } from "remix-hono/i18next"
 import { getClientEnv, getServerEnv } from "@/env.server"
-import {getAccount} from "@/utils/http";
 
 export const globalAppContext = createContext<LoadContext>()
-
 
 export const getAppContext = async (c: Context) => {
 	// get the locale from the context
 	const locale = i18next.getLocale(c)
 	// get t function for the default namespace
 	const t = await i18next.getFixedT(c)
-	// get user Account
-	const userAccount = await getAccount();
 	// get the server environment
 	const env = getServerEnv()
-
 
 	return {
 		lang: locale,
 		t,
-		userAccount,
 		isProductionDeployment: env.APP_ENV === "production",
 		env,
 		clientEnv: getClientEnv(),

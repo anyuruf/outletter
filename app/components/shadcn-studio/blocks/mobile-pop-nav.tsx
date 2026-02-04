@@ -1,11 +1,10 @@
-import * as React from "react";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Button } from "@/components/ui/button";
-import HamburgerIconSVG from "@/components/HomePage/Header/HamburgerIconSVG";
+import HamburgerIconSvg from "@/components/headers/hamburger-icon-svg";
 import { NavigationMenu, NavigationMenuList, NavigationMenuItem } from "@/components/ui/navigation-menu";
 
 
@@ -29,13 +28,13 @@ function MobilePopNav ({ navigationLinks}: MobilePopNavProps) {
             variant="ghost"
             size="icon"
           >
-            <HamburgerIconSVG />
+            <HamburgerIconSvg />
           </Button>
         </PopoverTrigger>
         <PopoverContent align="start" className="w-64 p-1">
           <NavigationMenu className="max-w-none">
             <NavigationMenuList className="flex-col items-start gap-1">
-              {navigationLinks.map((link, index) => (
+              {navigationLinks?.map((link, index) => (
                 <NavigationMenuItem key={index} className="w-full">
                   <button
                     onClick={(e) => {

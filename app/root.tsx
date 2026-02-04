@@ -1,49 +1,68 @@
 import { useTranslation } from "react-i18next"
-import type { LinksFunction } from "react-router"
+import {LinksFunction, MiddlewareFunction, useLoaderData} from "react-router"
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "react-router"
 import type { Route } from "./+types/root"
 import { LanguageSwitcher } from "./library/language-switcher"
 import { globalAppContext } from "./server/context"
 import { ClientHintCheck, getHints } from "./services/client-hints"
-import tailwindcss from "./index.css?url"
-import {changeLanguage} from "i18next";
-import { AppSidebar } from "./components/app.sidebar"
-import React from "react";
+import  "./globals.css"
+import {ReactNode} from "react";
+import {PreventFlashOnWrongTheme, type Theme, ThemeProvider, useTheme} from "remix-themes"
+import {clsx} from "clsx";
+import {authSessionMiddleware, themeSessionResolver} from "@/utils/sessions.server";
+import {AppSidebar} from "@/components/app.sidebar";
+import {AppHeader} from "@/components/headers/app.header";
+import {getOptionalUserAccount, globalStorageMiddleware} from "@/middleware/context-storage";
+
 
 export async function loader({ context, request }: Route.LoaderArgs) {
-	const { lang, clientEnv } = context.get(globalAppContext)
+
+	// Return the theme from the session storage using the loader
+	const { getTheme } = await themeSessionResolver(request)
+	const userAccount = getOptionalUserAccount()
+	const { lang } = context.get(globalAppContext)
 	const hints = getHints(request)
-	return { lang, clientEnv, hints, sidebarContext }
+	return { lang,  hints, theme: getTheme(), userAccount }
 }
 
-
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: tailwindcss }]
 
 export const handle = {
 	i18n: "common",
 }
 
-export default async function App({ loaderData }: Route.ComponentProps) {
-	const { lang, clientEnv } = loaderData
-	await changeLanguage(lang)
+export default async function AppWithProviders() {
+	const data = useLoaderData<typeof loader>()
+
 	return (
-		<>
-			<Outlet />
-			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: We set the window.env variable to the client env */}
-			<script dangerouslySetInnerHTML={{ __html: `window.env = ${JSON.stringify(clientEnv)}` }} />
-		</>
+		<ThemeProvider specifiedTheme={data.theme} themeAction="/action/set-theme">
+			<AppLayout />
+		</ThemeProvider>
 	)
 }
 
-export const Layout = ({ children, loaderData }: { children: React.ReactNode; loaderData : Route.ComponentProps  }) => {
+async function AppLayout () {
+	return(
+		<Document>
+			<AppSidebar>
+				<AppHeader />
+				<Outlet />
+			</AppSidebar>
+		</Document>
+	)
+}
+
+const Document = ({ children,  }: { children: ReactNode;  }) => {
 	const { i18n } = useTranslation()
+	const data = useLoaderData<typeof loader>()
+	const [theme] = useTheme();
 
 	return (
-		<html className="overflow-y-auto overflow-x-hidden" lang={i18n.language} dir={i18n.dir()}>
+		<html className={clsx(theme)} lang={i18n.language} dir={i18n.dir()}>
 			<head>
 				<ClientHintCheck />
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)} />
 				<Meta />
 				<Links />
 			</head>
@@ -56,6 +75,7 @@ export const Layout = ({ children, loaderData }: { children: React.ReactNode; lo
 		</html>
 	)
 }
+
 
 export const ErrorBoundary = () => {
 	const error = useRouteError()
@@ -90,3 +110,8 @@ export const ErrorBoundary = () => {
 		</div>
 	)
 }
+
+export const middleware: MiddlewareFunction<Response>[] = [
+	authSessionMiddleware,
+	globalStorageMiddleware,
+]

@@ -5,7 +5,7 @@ import { StatusButton } from '@/components/status-button'
 import { useIsPending } from '@/utils/misc'
 import {ReactNode} from "react";
 
-export const OUTLET_PROVIDER_NAME = 'outlet'
+export const OUTLET_PROVIDER_NAME = 'oidc'
 // to add another provider, set their name here and add it to the providerNames below
 
 export const providerNames = [OUTLET_PROVIDER_NAME] as const
@@ -13,7 +13,7 @@ export const ProviderNameSchema = z.enum(providerNames)
 export type ProviderName = z.infer<typeof ProviderNameSchema>
 
 export const providerLabels: Record<ProviderName, string> = {
-	[OUTLET_PROVIDER_NAME]: 'Outlet',
+	[OUTLET_PROVIDER_NAME]: 'oidc',
 } as const
 
 export const providerIcons: Record<ProviderName, ReactNode> = {
@@ -30,7 +30,7 @@ export function ProviderConnectionForm({
 	providerName: ProviderName
 }) {
 	const label = providerLabels[providerName]
-	const formAction = `/auth/${providerName}`
+	const formAction = `/auth2/authorization/${providerName}`
 	const isPending = useIsPending({ formAction })
 	return (
 		<Form

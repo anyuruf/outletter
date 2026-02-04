@@ -1,12 +1,7 @@
-import { Image } from "@unpic/react";
-import { Button } from '@/components/ui/button';
 import { slides } from "@/constants/carouselProducts";
 import { featuredProducts } from "@/constants/featuredProducts";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardDescription, CardTitle, CardFooter } from '@/components/ui/card';
-import ProductCard from "@/components/HomePage/ProductCard/ProductCard";
-import { GradientText } from "@/components/shadcn-io/GradientText";
-import SectionHeading from "@/components/HomePage/ProductCard/SectionHeading";
+import ProductCard from "@/components/home/product-card/product-card";
+import SectionHeading from "@/components/home/product-card/section-heading";
 
 export default function PopularGridSection() {
   const products = featuredProducts.concat(slides)
