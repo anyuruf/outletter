@@ -41,8 +41,12 @@ export const getUserAccount = () => {
 
 export const globalStorageMiddleware: MiddlewareFunction<Response> = async ({ context }, next) => {
     const authSession = getAuthSessionFromContext(context)
-    const accessToken = authSession.get("access-token");
-    const userAccount = accessToken ? (await getUserAccountFromApi() ?? null) : null ;
+    const tokens = authSession.get("tokens");
+    const userAccount = tokens ? (await getUserAccountFromApi({
+        headers: {
+            Authorization: `Bearer ${tokens.accessToken()}`
+        }
+    }) ?? null) : null ;
     return new Promise((resolve) => {
         globalStorage.run(
             {

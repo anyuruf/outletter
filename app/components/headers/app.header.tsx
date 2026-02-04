@@ -12,6 +12,8 @@ import DesktopNav from "@/components/shadcn-studio/blocks/desktop-nav";
 import ExpandableSearch from "@/components/headers/expandable.search";
 import {type NavbarProps} from "@/types.d.ts/navigation";
 import {defaultNavigationLinks} from "@/utils/constants";
+import {useRouteData} from "@/utils/use-parent-data";
+import {Button} from "@/components/ui/button";
 
 
 export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
@@ -37,6 +39,8 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
     const containerRef = useRef<HTMLElement | null>(null);
     // Don't show mobile nav when side open
     const { open } = useSidebar();
+    // useAccount from Authentication
+      const {  userAccount } = useRouteData();
 
     useEffect(() => {
       const checkWidth = () => {
@@ -69,11 +73,6 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
       }
     }, [ref]);
 
-    const user = {
-      name: "anyuruf",
-      email: "anyuruf@anyuruf.net",
-      avatar: "https://avatars.githubusercontent.com/u/46653783?v=4"
-    }
 
     return (
       <header
@@ -135,11 +134,14 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
               <InfoMenu onItemClick={onInfoItemClick} />
 
               {/* Notification */}
+            {userAccount ? <>
               <NotificationMenu
                 notificationCount={notificationCount}
                 onItemClick={onNotificationItemClick}
               />
-              <UserMenu userName={user.name} userEmail={user.email} userAvatar={user.avatar}/>
+              <UserMenu userName={userAccount.name} userEmail={userAccount.email} userAvatar={userAccount.avatar}/>
+            </> : <Button variant="outline" >Sign In</Button>
+            }
             </div>
           </div>
         }

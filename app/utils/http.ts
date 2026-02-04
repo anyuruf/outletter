@@ -59,7 +59,7 @@ export async function apiFetch<T>(
 	return await response.json() as Promise<T>;
 }
 
-export function getUserAccountFromApi(): Promise<UserAccount> {
-	return apiFetch<UserAccount>("/api/account");
+export function getUserAccountFromApi(options?: RequestInit): Promise<UserAccount> {
+	return apiFetch<UserAccount>("/api/account", options);
 }
 

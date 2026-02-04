@@ -4,10 +4,9 @@ import {
 	OUTLET_PROVIDER_NAME,
 	ProviderConnectionForm,
 } from '@/utils/connections'
-import { type Route } from './+types.d.ts/login'
 
 
-export default function LoginPage() {
+function LoginPage() {
 
 	return (
 		<div className="flex min-h-full flex-col justify-center pt-20 pb-32">
@@ -32,7 +31,4 @@ export default function LoginPage() {
 	)
 }
 
-
-export const meta: Route.MetaFunction = () => {
-	return [{ title: 'Login to Outlet iCommerce resource' }]
-}
+export default LoginPage;
