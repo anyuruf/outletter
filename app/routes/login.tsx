@@ -1,9 +1,6 @@
 import { Spacer } from '@/components/spacer'
+import { Button } from '@/components/ui/button'
 
-import {
-	OUTLET_PROVIDER_NAME,
-	ProviderConnectionForm,
-} from '@/utils/connections'
 
 
 function LoginPage() {
@@ -20,10 +17,15 @@ function LoginPage() {
 				<Spacer size="xs" />
 				<div>
 					<div className="mx-auto w-full max-w-md px-8">
-						<ProviderConnectionForm
+						{/****<ProviderConnectionForm
 							type="Login"
 							providerName={OUTLET_PROVIDER_NAME}
-						/>
+						/> ****/}
+						<Button variant="secondary" asChild>
+							<a
+								href={`${String(process.env.BACKEND_SERVER_URL)}/oauth2/authorization/oidc`}
+							>Log in</a>
+						</Button>
 					</div>
 				</div>
 			</div>
