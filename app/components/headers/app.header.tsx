@@ -1,4 +1,5 @@
 import {useEffect, useState, useRef, forwardRef, useCallback} from 'react';
+import { Link } from "react-router";
 import { InfoMenu } from '@/components/headers/info.menu';
 import { UserMenu } from '@/components/headers/user.menu';
 import { cn } from '@/utils/misc';
@@ -140,7 +141,9 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
                 onItemClick={onNotificationItemClick}
               />
               <UserMenu userName={userAccount.name} userEmail={userAccount.email} userAvatar={userAccount.avatar}/>
-            </> : <Button variant="outline" >Sign In</Button>
+            </> : <Button variant="outline" asChild>
+                <Link to="/login">Log in</Link>
+            </Button>
             }
             </div>
           </div>

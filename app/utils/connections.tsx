@@ -1,9 +1,8 @@
 import { Form } from 'react-router'
 import { z } from 'zod'
-import { Icon } from '@/components/icon'
 import { StatusButton } from '@/components/status-button'
 import { useIsPending } from '@/utils/misc'
-import {ReactNode} from "react";
+import OutletShortLogoSvg from "@/components/headers/outlet-short-logo";
 
 export const OUTLET_PROVIDER_NAME = 'oidc'
 // to add another provider, set their name here and add it to the providerNames below
@@ -14,10 +13,6 @@ export type ProviderName = z.infer<typeof ProviderNameSchema>
 
 export const providerLabels: Record<ProviderName, string> = {
 	[OUTLET_PROVIDER_NAME]: 'oidc',
-} as const
-
-export const providerIcons: Record<ProviderName, ReactNode> = {
-	[OUTLET_PROVIDER_NAME]: <Icon name="outlet-logo" />,
 } as const
 
 export function ProviderConnectionForm({
@@ -46,8 +41,10 @@ export function ProviderConnectionForm({
 				className="w-full"
 				status={isPending ? 'pending' : 'idle'}
 			>
-				<span className="inline-flex items-center gap-1.5">
-					{providerIcons[providerName]}
+				<span className="inline-flex items-center gap-1.5 ">
+					<div className="w-4 h-4" >
+						<OutletShortLogoSvg />
+					</div>
 					<span>
 						{type} with {label}
 					</span>

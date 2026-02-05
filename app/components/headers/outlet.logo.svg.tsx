@@ -12,7 +12,6 @@ const OutletLogoSvg = ({ className, ...props }: React.SVGAttributes<SVGElement>)
     xmlSpace="preserve"
     xmlnsXlink="http://www.w3.org/1999/xlink"
     xmlns="http://www.w3.org/2000/svg"
-    xmlns:svg="http://www.w3.org/2000/svg"
     {...props}
   >
     <defs id="defs1">
@@ -250,7 +249,6 @@ const OutletLogoSvg = ({ className, ...props }: React.SVGAttributes<SVGElement>)
                     InkscapeFontSpecification:
                       "'Noto Sans Adlam Unjoined Bold'",
                     textAlign: "start",
-                    writingMode: "lr-tb",
                     direction: "ltr",
                     whiteSpace: "pre",
                     shapeInside: "url(#rect1)",
@@ -261,7 +259,7 @@ const OutletLogoSvg = ({ className, ...props }: React.SVGAttributes<SVGElement>)
                     stroke: "url(#linearGradient11)",
                     strokeWidth: 3.0532,
                     strokeDasharray: "none",
-                  } as CSSProperties}
+                  } as const}
                   transform="matrix(0.3200824,0,0,0.33512207,41.432618,90.16562)"
                 >
                   <tspan x={45.892578} y={168.87337} id="tspan6">
@@ -271,7 +269,7 @@ const OutletLogoSvg = ({ className, ...props }: React.SVGAttributes<SVGElement>)
                         fontFamily: "MathJax_Caligraphic",
                         InkscapeFontSpecification:
                           "'MathJax_Caligraphic, Bold'",
-                      }}
+                      } as CSSProperties}
                       id="tspan2"
                     >
                       {"O"}
@@ -282,7 +280,7 @@ const OutletLogoSvg = ({ className, ...props }: React.SVGAttributes<SVGElement>)
                         fontFamily: "MathJax_Caligraphic",
                         InkscapeFontSpecification:
                           "'MathJax_Caligraphic, Bold'",
-                      }}
+                      } as CSSProperties}
                       id="tspan5"
                     >
                       {"utlet"}
