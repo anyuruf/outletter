@@ -1,11 +1,10 @@
 import { AsyncLocalStorage } from "node:async_hooks"
-import type { Session, MiddlewareFunction } from "react-router"
+import {Session, MiddlewareFunction, redirect} from "react-router"
 import {UserAccount} from "@/types.d.ts/user.account";
 import {getAuthSessionFromContext} from "@/utils/sessions.server";
 import {getUserAccountFromApi} from "@/utils/http";
 
 type GlobalStorage = {
-    authSession: Session
     userAccount: UserAccount | null
 }
 
@@ -21,10 +20,6 @@ const getGlobalStorage = () => {
     return storage
 }
 
-export const getAuthSession = () => {
-    const storage = getGlobalStorage()
-    return storage.authSession
-}
 
 export const getOptionalUserAccount = () => {
     const storage = getGlobalStorage()
@@ -39,18 +34,36 @@ export const getUserAccount = () => {
     return userAccount
 }
 
-export const globalStorageMiddleware: MiddlewareFunction<Response> = async ({ context }, next) => {
-    const authSession = getAuthSessionFromContext(context)
-    const tokens = authSession.get("tokens");
-    const userAccount = tokens ? (await getUserAccountFromApi({
-        headers: {
-            Authorization: `Bearer ${tokens.accessToken()}`
-        }
-    }) ?? null) : null ;
+export const globalStorageMiddleware: MiddlewareFunction<Response> = async ({ request}, next) => {
+
+    let userAccount = null
+
+    try {
+        userAccount = getUserAccountFromApi({
+            headers: {
+                cookie: request.headers.get("cookie") ?? "",
+            }
+        })
+    } catch {}
+
+
+    if(!userAccount) {
+        return new Promise((resolve) => {
+            globalStorage.run(
+                {
+                    userAccount: null,
+                },
+                () => {
+                    resolve(next())
+                }
+            )
+        })
+    }
+    
     return new Promise((resolve) => {
+        // @ts-ignore
         globalStorage.run(
             {
-                authSession,
                 userAccount,
             },
             () => {

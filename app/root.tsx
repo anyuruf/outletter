@@ -9,7 +9,7 @@ import  "./globals.css"
 import {ReactNode} from "react";
 import {PreventFlashOnWrongTheme, type Theme, ThemeProvider, useTheme} from "remix-themes"
 import {clsx} from "clsx";
-import {authSessionMiddleware, themeSessionResolver} from "@/utils/sessions.server";
+import {themeSessionResolver} from "@/utils/sessions.server";
 import {AppSidebar} from "@/components/app.sidebar";
 import {AppHeader} from "@/components/headers/app.header";
 import {getOptionalUserAccount, globalStorageMiddleware} from "@/middleware/context-storage";
@@ -112,6 +112,5 @@ export const ErrorBoundary = () => {
 }
 
 export const middleware: MiddlewareFunction<Response>[] = [
-	authSessionMiddleware,
 	globalStorageMiddleware,
 ]

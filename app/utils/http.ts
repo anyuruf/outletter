@@ -1,7 +1,7 @@
 /**
  * Fetcher API function abstractions
  */
-import { SERVER_BACKEND_BASE_URL } from "./constants";
+import { BACKEND_SERVER_URL } from "./constants";
 import type {UserAccount} from "@/types.d.ts/user.account.ts";
 
 
@@ -42,7 +42,7 @@ export async function apiFetch<T>(
 	path: string,
 	init?: RequestInit
 ): Promise<T> {
-	const response = await fetch(`${SERVER_BACKEND_BASE_URL}${path}`, {
+	const response = await fetch(`${BACKEND_SERVER_URL}${path}`, {
 		credentials: "include", // IMPORTANT for Spring Security / Keycloak
 		headers: {
 			"Content-Type": "application/json",
