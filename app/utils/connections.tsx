@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { StatusButton } from '@/components/status-button'
 import { useIsPending } from '@/utils/misc'
 import OutletShortLogoSvg from "@/components/headers/outlet-short-logo";
+import {BACKEND_SERVER_URL, SERVER_BACKEND_BASE_URL} from "@/utils/constants";
 
 export const OUTLET_PROVIDER_NAME = 'oidc'
 // to add another provider, set their name here and add it to the providerNames below
@@ -25,7 +26,7 @@ export function ProviderConnectionForm({
 	providerName: ProviderName
 }) {
 	const label = providerLabels[providerName]
-	const formAction = `/auth2/authorization/${providerName}`
+	const formAction = `${BACKEND_SERVER_URL}/auth2/authorization/${providerName}`
 	const isPending = useIsPending({ formAction })
 	return (
 		<Form

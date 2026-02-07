@@ -9,7 +9,7 @@ import  "./globals.css"
 import {ReactNode} from "react";
 import {PreventFlashOnWrongTheme, type Theme, ThemeProvider, useTheme} from "remix-themes"
 import {clsx} from "clsx";
-import {authSessionMiddleware, themeSessionResolver} from "@/utils/sessions.server";
+import {themeSessionResolver} from "@/utils/sessions.server";
 import {AppSidebar} from "@/components/app.sidebar";
 import {AppHeader} from "@/components/headers/app.header";
 import {getOptionalUserAccount, globalStorageMiddleware} from "@/middleware/context-storage";
@@ -20,9 +20,8 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 	// Return the theme from the session storage using the loader
 	const { getTheme } = await themeSessionResolver(request)
 	const userAccount = getOptionalUserAccount()
-	const { lang } = context.get(globalAppContext)
 	const hints = getHints(request)
-	return { lang,  hints, theme: getTheme(), userAccount }
+	return {  hints, theme: getTheme(), userAccount }
 }
 
 
@@ -112,6 +111,5 @@ export const ErrorBoundary = () => {
 }
 
 export const middleware: MiddlewareFunction<Response>[] = [
-	authSessionMiddleware,
 	globalStorageMiddleware,
 ]

@@ -1,7 +1,7 @@
 /**
  * Fetcher API function abstractions
  */
-import { SERVER_BACKEND_BASE_URL } from "./constants";
+import { BACKEND_SERVER_URL } from "./constants";
 import type {UserAccount} from "@/types.d.ts/user.account.ts";
 
 
@@ -29,37 +29,22 @@ export const createDomain = (request: Request) => {
 	return `https://${url.host}`
 }
 
-export class HttpError extends Error {
-	constructor(
-		public status: number,
-		message: string
-	) {
-		super(message);
-	}
-}
+export async function getUserAccountFromApi(request: Request): Promise<UserAccount> {
+	let userAccount = null
 
-export async function apiFetch<T>(
-	path: string,
-	init?: RequestInit
-): Promise<T> {
-	const response = await fetch(`${SERVER_BACKEND_BASE_URL}${path}`, {
-		credentials: "include", // IMPORTANT for Spring Security / Keycloak
-		headers: {
-			"Content-Type": "application/json",
-			...init?.headers,
-		},
-		...init,
-	});
+	try {
+		const res = await fetch(`${BACKEND_SERVER_URL}/api/account`, {
+			headers: {
+				cookie: request.headers.get("cookie") ?? "",
+			},
+			credentials: "include",
+		})
 
-	if (!response.ok) {
-		const text = await response.text();
-		throw new HttpError(response.status, text || response.statusText);
-	}
+		if (res.ok) {
+			userAccount = await res.json();
+		}
+	} catch {}
 
-	return await response.json() as Promise<T>;
-}
-
-export function getUserAccountFromApi(options?: RequestInit): Promise<UserAccount> {
-	return apiFetch<UserAccount>("/api/account", options);
+	return userAccount;
 }
 
