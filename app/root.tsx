@@ -20,9 +20,8 @@ export async function loader({ context, request }: Route.LoaderArgs) {
 	// Return the theme from the session storage using the loader
 	const { getTheme } = await themeSessionResolver(request)
 	const userAccount = getOptionalUserAccount()
-	const { lang } = context.get(globalAppContext)
 	const hints = getHints(request)
-	return { lang,  hints, theme: getTheme(), userAccount }
+	return {  hints, theme: getTheme(), userAccount }
 }
 
 

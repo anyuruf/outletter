@@ -11,7 +11,7 @@ export function useParentData(pathname: string): unknown {
 export function useRouteData() {
 	const match = useRouteLoaderData("root")
 	if (!match) {
-		throw new Error("this dashboard data does not exist on the current route")
+		throw new Error("this root data does not exist on the current route")
 	}
 	return match
 }

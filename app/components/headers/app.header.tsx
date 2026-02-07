@@ -140,7 +140,7 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
                 notificationCount={notificationCount}
                 onItemClick={onNotificationItemClick}
               />
-              <UserMenu userName={userAccount.firstName} userEmail={userAccount.email} userAvatar={userAccount.avatar}/>
+              <UserMenu userName={userAccount.firstName} userEmail={userAccount.email} userAvatar={userAccount.imgUrl}/>
             </> : <Button variant="outline" asChild>
                 <Link to="/login">Log in</Link>
             </Button>
