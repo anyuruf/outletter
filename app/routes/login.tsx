@@ -2,8 +2,7 @@ import { Spacer } from '@/components/spacer'
 import { Button } from '@/components/ui/button'
 
 
-
-function LoginPage() {
+async function LoginPage() {
 
 	return (
 		<div className="flex min-h-full flex-col justify-center pt-20 pb-32">
@@ -11,8 +10,13 @@ function LoginPage() {
 				<div className="flex flex-col gap-3 text-center">
 					<h1 className="text-h1">Welcome back!</h1>
 					<p className="text-body-md text-muted-foreground">
-						Please enter your details.
+						Please click button below.
 					</p>
+					<Button type="button" variant="secondary" asChild>
+						<a href={`${process.env.BACKEND_SERVER_URL}/oauth2/authorization/oidc`}>
+							Sign in
+						</a>
+					</Button>
 				</div>
 				<Spacer size="xs" />
 				<div>
@@ -21,11 +25,7 @@ function LoginPage() {
 							type="Login"
 							providerName={OUTLET_PROVIDER_NAME}
 						/> ****/}
-						<Button variant="secondary" asChild>
-							<a
-								href={`${String(process.env.BACKEND_SERVER_URL)}/oauth2/authorization/oidc`}
-							>Log in</a>
-						</Button>
+
 					</div>
 				</div>
 			</div>
