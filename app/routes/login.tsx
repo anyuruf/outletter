@@ -12,21 +12,13 @@ async function LoginPage() {
 					<p className="text-body-md text-muted-foreground">
 						Please click button below.
 					</p>
+					<Spacer size="xs" />
+					<Spacer size="xs" />
 					<Button type="button" variant="secondary" asChild>
 						<a href={`${process.env.BACKEND_SERVER_URL}/oauth2/authorization/oidc`}>
 							Sign in
 						</a>
 					</Button>
-				</div>
-				<Spacer size="xs" />
-				<div>
-					<div className="mx-auto w-full max-w-md px-8">
-						{/****<ProviderConnectionForm
-							type="Login"
-							providerName={OUTLET_PROVIDER_NAME}
-						/> ****/}
-
-					</div>
 				</div>
 			</div>
 		</div>

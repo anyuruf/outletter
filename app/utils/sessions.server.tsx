@@ -25,23 +25,6 @@ const themeSessionStorage = createCookieSessionStorage({
   },
 })
 
-const { getSession, commitSession, destroySession }  = createCookieSessionStorage({
-    cookie: {
-        name: "pixie-cookie",
-        path: "/",
-        httpOnly: true,
-        sameSite: "lax",
-        // Todo enable env variable
-        secrets: [String(process.env.OAUTH2_SESSION_SECRET)],
-        // Set domain and secure only if in production
-        ...(isProduction
-            ? { domain: "https://outlet.com", secure: true }
-            : {}),
-    },
-})
-
-export { getSession, commitSession, destroySession };
-
 export const themeSessionResolver = createThemeSessionResolver(themeSessionStorage)
 
 
