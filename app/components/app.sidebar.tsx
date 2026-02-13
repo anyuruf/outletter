@@ -9,7 +9,7 @@ export const AppSidebar = ({
 }: React.ComponentProps<"div">) => {
     return (
         <div className='flex min-h-dvh w-full'>
-            <SidebarProvider defaultOpen={false}>
+            <SidebarProvider defaultOpen={true}>
             <Sidebar className={className} >
                 <SidebarHeader className="p-0 gap-0">
                     {/********* Overlay for Logo to have same background as the one in the AppHeader ******/}
