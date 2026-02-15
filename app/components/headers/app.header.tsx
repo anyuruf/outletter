@@ -39,7 +39,7 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
     const [isMobile, setIsMobile] = useState(false);
     const containerRef = useRef<HTMLElement | null>(null);
     // Don't show mobile nav when side open
-    const { open } = useSidebar();
+    const { open, setOpen } = useSidebar();
     // useAccount from Authentication
       const {  userAccount } = useRouteData();
 
@@ -79,7 +79,7 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
       <header
         ref={combinedRef}
         className={cn(
-          'sticky top-0 z-50 w-full max-w-9xl border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 [&_*]:no-underline',
+          'sticky top-0 z-35 w-full max-w-9xl border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 [&_*]:no-underline',
           className
         )}
         {...props}
@@ -105,7 +105,7 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
 
         {/* Desktop Menu */}
         { !isMobile &&
-          <div className="inline-flex items-center gap-2 px-2 py-3 sm:px-4 max-w-9xl justify-between w-full">
+          <div className="inline-flex items-center gap-2 px-2 py-4 sm:px-4 max-w-9xl justify-between w-full">
             {/****Left Side - Desktop Logo ****/}
             <div className="inline-flex gap-3 justify-between items-center">
               { !open && (<button
@@ -114,7 +114,9 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
               >
                 {logo}
               </button> )}
-              <SidebarTrigger className='[&_svg]:!size-4' />
+                <Button asChild>
+                    <SidebarTrigger className='[&_svg]:!size-4' onClick={() => setOpen(!open)}/>
+                </Button>
 
               {/* Navigation menu */}
               <DesktopNav navigationLinks={navigationLinks} />

@@ -3,7 +3,6 @@ import {
     createCookieSessionStorage, MiddlewareFunction,
     redirect,
 } from "react-router";
-import {getUserAccountFromApi} from "@/utils/http";
 import {getOptionalUserAccount} from "@/middleware/context-storage";
 
 

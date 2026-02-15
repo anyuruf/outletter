@@ -38,12 +38,12 @@ function SearchForm() {
   );
 }
 
-function CategoryPopover({ classNames }) {
+function CategoryPopover({ classNames }: {classNames: string}) {
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <Button asChild>
         {/* classNames used for positioning the poper */}
-        <Button
+        <PopoverTrigger
           type="button"
           className={cn(
             "py-2 px-4 font-semibold text-md inline-flex items-center gap-1 rounded-r-none",
@@ -52,11 +52,11 @@ function CategoryPopover({ classNames }) {
         >
           <span>Category</span>
           <ChevronDown strokeWidth={3} className="w-4 h-4" />
-        </Button>
-      </PopoverTrigger>
+        </PopoverTrigger>
+      </Button>
 
       <PopoverContent
-        align="middle"
+        align="center"
         className="w-3xl px-6 grid gap-4 grid-cols-[repeat(auto-fill,minmax(128px,1fr))]"
       >
         {CATEGORY_GROUPS.map((group) => (
