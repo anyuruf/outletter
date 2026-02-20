@@ -19,8 +19,6 @@ export default function HeroCarousel() {
         emblaApi.plugins().autoplay?.play()
     }, [emblaApi])
 
-
-
   return (
     <section className="max-w-7xl mx-auto w-full">
       <Carousel

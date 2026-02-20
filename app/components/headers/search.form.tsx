@@ -13,7 +13,7 @@ function SearchForm() {
   return (
     <>
       {/* flex classes are for the parent container */}
-      <form className="gap-4 justify-center flex-grow hidden md:flex">
+      <form className="gap-4 justify-center  flex-grow hidden md:flex">
         <div className="relative w-full max-w-xl">
           {/* Left Button/Popover. top-0 for (top-1/2 -translate-y-1/2) */}
           <CategoryPopover classNames="absolute left-0 top-0" />
@@ -21,7 +21,7 @@ function SearchForm() {
           <Input
             type="search"
             placeholder="Search for products..."
-            className="w-full px-29 border-2  font-semibold text-md border-y-primary focus-visible:ring-[4px]"
+            className="w-full px-29 border-3  font-semibold text-md border-y-primary focus-visible:ring-[4px]"
           />
 
           {/* Right button */}
@@ -41,22 +41,21 @@ function SearchForm() {
 function CategoryPopover({ classNames }: {classNames: string}) {
   return (
     <Popover>
-      <Button asChild>
+      <PopoverTrigger asChild>
         {/* classNames used for positioning the poper */}
-        <PopoverTrigger
+        <Button
           type="button"
           className={cn(
-            "py-2 px-4 font-semibold text-md inline-flex items-center gap-1 rounded-r-none",
+            "py-2 px-4 z-35 font-semibold text-md inline-flex items-center gap-1 rounded-r-none",
             classNames,
           )}
         >
           <span>Category</span>
           <ChevronDown strokeWidth={3} className="w-4 h-4" />
-        </PopoverTrigger>
-      </Button>
+        </Button>
+      </PopoverTrigger>
 
       <PopoverContent
-        align="center"
         className="w-3xl px-6 grid gap-4 grid-cols-[repeat(auto-fill,minmax(128px,1fr))]"
       >
         {CATEGORY_GROUPS.map((group) => (

@@ -1,16 +1,11 @@
-import { useTranslation } from "react-i18next"
 import { MiddlewareFunction, useLoaderData} from "react-router"
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "react-router"
 import type { Route } from "./+types/root"
-import { LanguageSwitcher } from "./library/language-switcher"
-import { ClientHintCheck, getHints } from "./services/client-hints"
 import  "./globals.css"
 import {ReactNode} from "react";
 import {PreventFlashOnWrongTheme, ThemeProvider, useTheme} from "remix-themes"
 import {clsx} from "clsx";
 import {themeSessionResolver} from "@/utils/sessions.server";
-import {AppSidebar} from "@/components/app.sidebar";
-import {AppHeader} from "@/components/headers/app.header";
 import {getOptionalUserAccount, globalStorageMiddleware} from "@/middleware/context-storage";
 
 
@@ -22,44 +17,31 @@ export async function loader({ request }: Route.LoaderArgs) {
 	return { theme: getTheme(), userAccount }
 }
 
-export default async function AppWithProviders() {
+export default function App () {
 	const data = useLoaderData<typeof loader>()
 
 	return (
 		<ThemeProvider specifiedTheme={data.theme} themeAction="/action/set-theme">
-			<AppLayout />
+					<Outlet />
 		</ThemeProvider>
 	)
 }
 
-async function AppLayout () {
-	return(
-		<Document>
-			<AppSidebar>
-				<AppHeader />
-				<Outlet />
-			</AppSidebar>
-		</Document>
-	)
-}
-
-const Document = ({ children,  }: { children: ReactNode;  }) => {
+export const Layout = async ({ children,  }: { children: ReactNode;  }) => {
 	const data = useLoaderData<typeof loader>()
 	const [theme] = useTheme();
 
 	return (
 		<html className={clsx(theme)} >
 			<head>
-				<ClientHintCheck />
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)} />
 				<Meta />
 				<Links />
 			</head>
-			<body className="h-full w-full">
-				<LanguageSwitcher />
-				{children}
+			<body>
+				<Outlet />
 				<ScrollRestoration />
 				<Scripts />
 			</body>

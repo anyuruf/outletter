@@ -8,6 +8,8 @@ import tsconfigPaths from "vite-tsconfig-paths"
 
 export default defineConfig({
 	plugins: [
+		reactRouterDevTools(),
+		reactRouter(),
 		tailwindcss(),
 		// Run the react-compiler on .tsx files only when bundling
 		{
@@ -20,8 +22,6 @@ export default defineConfig({
 			}),
 			apply: "build",
 		},
-		reactRouterDevTools(),
-		reactRouter(),
 		tsconfigPaths(),
 		iconsSpritesheet({
 			inputDir: "./resources/icons",

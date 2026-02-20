@@ -105,7 +105,7 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
 
         {/* Desktop Menu */}
         { !isMobile &&
-          <div className="inline-flex items-center gap-2 px-2 py-4 sm:px-4 max-w-9xl justify-between w-full">
+          <div className="inline-flex items-center gap-2 px-2 my-4 sm:px-4 max-w-9xl justify-between w-full">
             {/****Left Side - Desktop Logo ****/}
             <div className="inline-flex gap-3 justify-between items-center">
               { !open && (<button
@@ -114,16 +114,14 @@ export const AppHeader = forwardRef<HTMLElement, NavbarProps>(
               >
                 {logo}
               </button> )}
-                <Button asChild>
-                    <SidebarTrigger className='[&_svg]:!size-4' onClick={() => setOpen(!open)}/>
-                </Button>
+                    <SidebarTrigger className='[&_svg]:!size-4'/>
 
               {/* Navigation menu */}
               <DesktopNav navigationLinks={navigationLinks} />
             </div>
 
             {/****In the Middle - Search form ****/}
-            <div className="flex w-full px-3 items-center justify-center">
+            <div className="flex w-full py-2 items-center justify-center">
               <SearchForm />
             </div>
 
