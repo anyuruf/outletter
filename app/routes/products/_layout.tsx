@@ -3,7 +3,7 @@ import {AppHeader} from "@/components/headers/app.header";
 import { AppSidebar } from "@/components/app.sidebar";
 
 
-export default function Products() {
+export default function Layout() {
 
     return (
         <AppSidebar>

@@ -1,6 +1,9 @@
-import { MiddlewareFunction, useLoaderData} from "react-router"
+import { useTranslation } from "react-i18next"
+import { LoaderFunctionArgs, MiddlewareFunction, useLoaderData} from "react-router"
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration, useRouteError } from "react-router"
 import type { Route } from "./+types/root"
+import { LanguageSwitcher } from "./library/language-switcher"
+import { ClientHintCheck, getHints } from "./services/client-hints"
 import  "./globals.css"
 import {ReactNode} from "react";
 import {PreventFlashOnWrongTheme, ThemeProvider, useTheme} from "remix-themes"
@@ -9,42 +12,57 @@ import {themeSessionResolver} from "@/utils/sessions.server";
 import {getOptionalUserAccount, globalStorageMiddleware} from "@/middleware/context-storage";
 
 
-export async function loader({ request }: Route.LoaderArgs) {
+export async function loader({ request }: LoaderFunctionArgs) {
 
 	// Return the theme from the session storage using the loader
 	const { getTheme } = await themeSessionResolver(request)
 	const userAccount = getOptionalUserAccount()
-	return { theme: getTheme(), userAccount }
+	const hints = getHints(request)
+	return {  hints, theme: getTheme(), userAccount }
 }
 
-export default function App () {
+
+export const handle = {
+	i18n: "common",
+}
+
+export default async function AppWithProviders() {
 	const data = useLoaderData<typeof loader>()
 
 	return (
 		<ThemeProvider specifiedTheme={data.theme} themeAction="/action/set-theme">
-					<Outlet />
+			<AppLayout />
 		</ThemeProvider>
 	)
 }
 
-export const Layout = async ({ children,  }: { children: ReactNode;  }) => {
+async function AppLayout () {
+	return(
+		<Document>
+			<Outlet />
+		</Document>
+	)
+}
+
+const Document = ({ children,  }: { children: ReactNode;  }) => {
 	const data = useLoaderData<typeof loader>()
 	const [theme] = useTheme();
 
 	return (
 		<html className={clsx(theme)} >
-			<head>
-				<meta charSet="utf-8" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)} />
-				<Meta />
-				<Links />
-			</head>
-			<body>
-				<Outlet />
-				<ScrollRestoration />
-				<Scripts />
-			</body>
+		<head>
+			<ClientHintCheck />
+			<meta charSet="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)} />
+			<Meta />
+			<Links />
+		</head>
+		<body className="h-full w-full">
+		{children}
+		<ScrollRestoration />
+		<Scripts />
+		</body>
 		</html>
 	)
 }
@@ -52,6 +70,7 @@ export const Layout = async ({ children,  }: { children: ReactNode;  }) => {
 
 export const ErrorBoundary = () => {
 	const error = useRouteError()
+	const { t } = useTranslation()
 	// Constrain the generic type so we don't provide a non-existent key
 	const statusCode = () => {
 		if (!isRouteErrorResponse(error)) {

@@ -20,7 +20,7 @@ const themeSessionStorage = createCookieSessionStorage({
     // Set domain and secure only if in production
     ...(isProduction
       ? { domain: "https://outlet.com", secure: true }
-      : {}),
+      : {domain: "https://outlet.com", secure: false}),
   },
 })
 
