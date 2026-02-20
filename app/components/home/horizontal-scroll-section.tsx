@@ -13,7 +13,7 @@ export default function HorizontalScrollSection() {
 
   return (
     <section className="grid grid-cols max-w-7xl mx-auto gap-2 md:gap-4">
-      <SectionHeading text="Featured _layout" />
+      <SectionHeading text="Featured Products" />
       <div className="w-full flex justify-center">
         <Carousel
           opts={{

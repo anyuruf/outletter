@@ -16,18 +16,18 @@ function SearchForm() {
       <form className="gap-4 justify-center  flex-grow hidden md:flex">
         <div className="relative w-full max-w-xl">
           {/* Left Button/Popover. top-0 for (top-1/2 -translate-y-1/2) */}
-          <CategoryPopover classNames="absolute left-0 top-0" />
+          <CategoryPopover classNames="absolute  top-1/2 -translate-y-1/2 left-0" />
           {/* Input */}
           <Input
             type="search"
             placeholder="Search for products..."
-            className="w-full px-29 border-3  font-semibold text-md border-y-primary focus-visible:ring-[4px]"
+            className="w-full px-28 border-3 h-10  font-semibold text-lg border-y-primary focus-visible:ring-[4px]"
           />
 
           {/* Right button */}
           <Button
             type="submit"
-            className="absolute right-0 top-0 z-10 font-semibold text-md py-2 px-4 inline-flex items-center gap-1 rounded-l-none"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 font-semibold text-md py-2 px-4 inline-flex items-center gap-2 rounded-l-none"
           >
             <Search strokeWidth={3} className="w-4 h-4" />
             <span>Search</span>
@@ -44,9 +44,8 @@ function CategoryPopover({ classNames }: {classNames: string}) {
       <PopoverTrigger asChild>
         {/* classNames used for positioning the poper */}
         <Button
-          type="button"
           className={cn(
-            "py-2 px-4 z-35 font-semibold text-md inline-flex items-center gap-1 rounded-r-none",
+            "py-2 px-4 font-semibold text-md inline-flex items-center gap-2 rounded-r-none",
             classNames,
           )}
         >
@@ -57,6 +56,7 @@ function CategoryPopover({ classNames }: {classNames: string}) {
 
       <PopoverContent
         className="w-3xl px-6 grid gap-4 grid-cols-[repeat(auto-fill,minmax(128px,1fr))]"
+        align="center"
       >
         {CATEGORY_GROUPS.map((group) => (
           <div key={group.title}>
