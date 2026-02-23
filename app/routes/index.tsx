@@ -1,4 +1,10 @@
 // @/app/routes/index.tsx
-import { redirect } from 'react-router';
 
-export const loader = () => redirect('/products');
+
+import DashboardPage from "@/routes/dashboard";
+
+export default function OutletIndex () {
+    return (
+        <DashboardPage />
+    );
+}

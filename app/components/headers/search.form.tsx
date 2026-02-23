@@ -41,17 +41,12 @@ function SearchForm() {
 function CategoryPopover({ classNames }: {classNames: string}) {
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        {/* classNames used for positioning the poper */}
-        <Button
-          className={cn(
-            "py-2 px-4 font-semibold text-md inline-flex items-center gap-2 rounded-r-none",
-            classNames,
-          )}
-        >
+      <PopoverTrigger className={cn(
+          "py-2 px-4 font-semibold text-md inline-flex items-center gap-2 rounded-r-none",
+          classNames,
+      )}>
           <span>Category</span>
           <ChevronDown strokeWidth={3} className="w-4 h-4" />
-        </Button>
       </PopoverTrigger>
 
       <PopoverContent
