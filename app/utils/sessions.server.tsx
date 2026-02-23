@@ -3,7 +3,6 @@ import {
     createCookieSessionStorage, MiddlewareFunction,
     redirect,
 } from "react-router";
-import {getUserAccountFromApi} from "@/utils/http";
 import {getOptionalUserAccount} from "@/middleware/context-storage";
 
 
@@ -21,7 +20,7 @@ const themeSessionStorage = createCookieSessionStorage({
     // Set domain and secure only if in production
     ...(isProduction
       ? { domain: "https://outlet.com", secure: true }
-      : {}),
+      : {domain: "https://outlet.com", secure: false}),
   },
 })
 

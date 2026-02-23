@@ -12,7 +12,7 @@ function Popover({
 function PopoverTrigger({
                           ...props
                         }: ComponentProps<typeof PopoverPrimitive.Trigger>) {
-  return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
+  return <PopoverPrimitive.Trigger data-slot="popover-trigger" ref={props.ref} {...props} />
 }
 
 function PopoverContent({

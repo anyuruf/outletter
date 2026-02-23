@@ -39,7 +39,7 @@ const buttonVariants = cva(
 export type ButtonVariant = VariantProps<typeof buttonVariants>
 
 /********** Add forwardRef make the button clickable **********/
-const Button = forwardRef(({
+const Button = (({
   className,
   variant,
   size,
@@ -47,13 +47,12 @@ const Button = forwardRef(({
   ...props
 }:ComponentProps<'button'> &
     ButtonVariant & {
-  asChild?: boolean}
-  , ref : ForwardedRef<HTMLButtonElement>) => {
+  asChild?: boolean}) => {
   const Comp = asChild ? Slot : "button"
 
   return (
     <Comp
-      ref={ref}
+      ref={props.ref}
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props} />
