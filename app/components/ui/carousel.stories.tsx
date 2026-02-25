@@ -14,7 +14,7 @@ import {
  * A carousel with motion and swipe built using Embla.
  */
 const meta: Meta<typeof Carousel> = {
-  title: "/ui/Carousel",
+  title: "ui/Carousel",
   component: Carousel,
   tags: ["autodocs"],
   argTypes: {},
@@ -79,7 +79,7 @@ export const ShouldNavigate: Story = {
   tags: ["!dev", "!autodocs"],
   play: async ({ canvas, step }) => {
     const slides = await canvas.findAllByRole("group");
-    expect(slides).toHaveLength(5);
+    await expect(slides).toHaveLength(5);
     const nextBtn = await canvas.findByRole("button", { name: /next/i });
     const prevBtn = await canvas.findByRole("button", {
       name: /previous/i,

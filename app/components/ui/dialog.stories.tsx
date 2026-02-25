@@ -18,7 +18,7 @@ import {
  * rendering the content underneath inert.
  */
 const meta = {
-  title: "/ui/Dialog",
+  title: "ui/Dialog",
   component: Dialog,
   tags: ["autodocs"],
   argTypes: {},
