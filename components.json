@@ -18,5 +18,7 @@
     "lib": "@/library",
     "hooks": "@/utils"
   },
-  "registries": {}
+  "registries": {
+    "@storybook": "https://registry.lloydrichards.dev/v3/radix/{name}.json"
+  }
 }

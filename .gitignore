@@ -80,3 +80,6 @@ blob-report
 *.sqlite
 *.sqlite3
 *.db-journal
+
+*storybook.log
+storybook-static
