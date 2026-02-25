@@ -24,16 +24,7 @@ const meta: Meta<typeof Button> = {
     },
     size: {
       control: "select",
-      options: [
-        "default",
-        "xs",
-        "sm",
-        "lg",
-        "icon",
-        "icon-xs",
-        "icon-sm",
-        "icon-lg",
-      ],
+      options: ["default", "sm", "lg", "icon"],
       if: { arg: "variant", neq: "link" },
     },
     children: {
@@ -41,6 +32,11 @@ const meta: Meta<typeof Button> = {
     },
     disabled: {
       control: "boolean",
+    },
+    asChild: {
+      table: {
+        disable: true,
+      },
     },
   },
   parameters: {
