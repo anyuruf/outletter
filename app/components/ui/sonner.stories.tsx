@@ -4,12 +4,18 @@ import { toast } from "sonner"
 import { action } from "storybook/actions"
 import { expect, userEvent, waitFor, within } from "storybook/test"
 
+
 import { Button } from "@/components/ui/button"
 import { Toaster } from "@/components/ui/sonner"
+import { withReactContext } from 'storybook-react-context';
+import {ThemeProvider} from "remix-themes";
+
 
 /**
  * An opinionated toast component for React.
  */
+
+
 const meta: Meta<typeof Toaster> = {
 	title: "ui/Sonner",
 	component: Toaster,
@@ -41,14 +47,20 @@ const meta: Meta<typeof Toaster> = {
 	),
 } satisfies Meta<typeof Toaster>
 
-export default meta
 
 type Story = StoryObj<typeof meta>
 
 /**
  * The default form of the toaster.
  */
-export const Default: Story = {}
+export default {
+	decorators: [withReactContext],
+	parameters: {
+		reactContext: {
+			context: ThemeProvider
+		}
+	}
+}
 
 export const ShouldShowToast: Story = {
 	name: "when clicking Show Toast button, should show a toast",
