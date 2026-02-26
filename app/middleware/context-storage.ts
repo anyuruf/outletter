@@ -1,40 +1,39 @@
 import { AsyncLocalStorage } from "node:async_hooks"
-import { MiddlewareFunction} from "react-router"
-import {UserAccount} from "@/types.d.ts/user.account";
+import type { MiddlewareFunction } from "react-router"
+import type { UserAccount } from "@/types.d.ts/user.account"
 
-import {getUserAccountFromApi} from "@/utils/http";
+import { getUserAccountFromApi } from "@/utils/http"
 
 type GlobalStorage = {
-    userAccount: UserAccount | null
+	userAccount: UserAccount | null
 }
 
 const globalStorage = new AsyncLocalStorage<GlobalStorage>()
 
 const getGlobalStorage = () => {
-    const storage = globalStorage.getStore()
+	const storage = globalStorage.getStore()
 
-    if (!storage) {
-        throw new Error("Storage unavailable")
-    }
+	if (!storage) {
+		throw new Error("Storage unavailable")
+	}
 
-    return storage
+	return storage
 }
 
-
 export const getOptionalUserAccount = () => {
-    const storage = getGlobalStorage()
-    return storage.userAccount
+	const storage = getGlobalStorage()
+	return storage.userAccount
 }
 
 export const getUserAccount = () => {
-    const userAccount = getOptionalUserAccount()
-    if (!userAccount) {
-        throw new Error("User should be available here")
-    }
-    return userAccount
+	const userAccount = getOptionalUserAccount()
+	if (!userAccount) {
+		throw new Error("User should be available here")
+	}
+	return userAccount
 }
 
-export const globalStorageMiddleware: MiddlewareFunction<Response> = async ({ request}, next) => {
-    const userAccount = await getUserAccountFromApi(request);
-    return globalStorage.run({ userAccount }, () => next())
+export const globalStorageMiddleware: MiddlewareFunction<Response> = async ({ request }, next) => {
+	const userAccount = await getUserAccountFromApi(request)
+	return globalStorage.run({ userAccount }, () => next())
 }
