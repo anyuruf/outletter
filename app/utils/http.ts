@@ -1,9 +1,9 @@
 /**
  * Fetcher API function abstractions
  */
-import { BACKEND_SERVER_URL } from "./constants";
-import type {UserAccount} from "@/types.d.ts/user.account.ts";
 
+import type { UserAccount } from "@/types.d.ts/user.account.ts"
+import { BACKEND_SERVER_URL } from "./constants"
 
 /**
  * Helper utility used to extract the domain from the request even if it's
@@ -41,10 +41,9 @@ export async function getUserAccountFromApi(request: Request): Promise<UserAccou
 		})
 
 		if (res.ok) {
-			userAccount = await res.json();
+			userAccount = await res.json()
 		}
 	} catch {}
 
-	return userAccount;
+	return userAccount
 }
-

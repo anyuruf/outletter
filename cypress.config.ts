@@ -1,12 +1,12 @@
-import { defineConfig } from "cypress";
+import { defineConfig } from "cypress"
 
 export default defineConfig({
-  allowCypressEnv: false,
+	allowCypressEnv: false,
 
-  component: {
-    devServer: {
-      framework: "react",
-      bundler: "vite",
-    },
-  },
-});
+	component: {
+		devServer: {
+			framework: "react",
+			bundler: "vite",
+		},
+	},
+})

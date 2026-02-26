@@ -1,11 +1,10 @@
-import {useMatches, useRouteLoaderData} from "react-router"
-
+import { useMatches, useRouteLoaderData } from "react-router"
 
 export function useParentData(pathname: string): unknown {
-	let matches = useMatches();
-	let parentMatch = matches.find((match) => match.pathname === pathname);
-	if (!parentMatch) return null;
-	return parentMatch.loaderData;
+	const matches = useMatches()
+	const parentMatch = matches.find((match) => match.pathname === pathname)
+	if (!parentMatch) return null
+	return parentMatch.loaderData
 }
 
 export function useRouteData() {
